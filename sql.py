@@ -1,6 +1,10 @@
+from pickle import TRUE
 from secrets import choice
 import mysql.connector
 from mysql.connector import Error
+c=[]
+t=[]
+q="" 
 
 def con_db(host_name, user_name, user_password, db_name):
     connection = None
@@ -28,6 +32,24 @@ def execute_query(connection, query):
 
 connection = con_db("localhost","nigel","zaq12wsx","project")
 
-opt=input("What do want to do (Create, edit or alter)?")
+opt=input("What do want to do (Create, edit, insert, alter,show)? ")
 
-print(opt)
+match opt:
+    case "create":
+        table=input("What is the table name? ")
+        
+        while True:
+            col=input("What is field name? ")
+            type=input("What is the field type? ")
+            c.append(col)
+            t.append(type)
+            
+            if input("Add other one y/n? ") == "n":
+                break
+        
+        for i in range(len(c)):
+            q=q+c[i]+" , "=t[i]
+
+print(q)
+
+#execute_query(connection,q)
