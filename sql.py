@@ -29,9 +29,7 @@ def execute_query(connection, query):
     except Error as e:
         print(f"The error '{e}' occurred")
 
-
 connection = con_db("localhost","nigel","zaq12wsx","project")
-
 opt=input("What do want to do (Create, edit, insert, alter,show)? ")
 
 match opt:
@@ -47,8 +45,11 @@ match opt:
             if input("Add other one y/n? ") == "n":
                 break
         
-        for i in range(len(c)):
-            q=q+c[i]+" , "=t[i]
+        for i in range(len(c)-1):
+            q=q+c[i]+" "+t[i]+","
+        
+        q=q+c[-1]+" "+t[-1]
+        q="\"CREATE TABLE "+table+" ("+q+");\""
 
 print(q)
 
